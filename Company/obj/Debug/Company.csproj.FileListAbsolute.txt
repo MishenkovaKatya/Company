@@ -1,0 +1,13 @@
+C:\Users\Kate\source\repos\Company\Company\bin\Debug\Company.exe.config
+C:\Users\Kate\source\repos\Company\Company\bin\Debug\Company.exe
+C:\Users\Kate\source\repos\Company\Company\bin\Debug\Company.pdb
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.csprojResolveAssemblyReference.cache
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.Form1.resources
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.Properties.Resources.resources
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.csproj.GenerateResource.Cache
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.csproj.CoreCompileInputs.cache
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.exe
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.pdb
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.Form2.resources
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.Form3.resources
+C:\Users\Kate\source\repos\Company\Company\obj\Debug\Company.Form4.resources
