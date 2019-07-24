@@ -49,6 +49,7 @@ namespace Company
             dTable = dSet.Tables["Department"];
             String res = dTable.Rows[0][0].ToString();
             int repeatEmp = Convert.ToInt32(res);
+            DateTime correctDate;
 
             if (textBox1.Text == "")
                 MessageBox.Show("Введите имя!", "Некорректные данные", MessageBoxButtons.OK);
@@ -58,6 +59,8 @@ namespace Company
                 MessageBox.Show("Введите отчество!", "Некорректные данные", MessageBoxButtons.OK);
             else if (maskedTextBox1.Text == "  .  .")
                 MessageBox.Show("Введите дату рождения!", "Некорректные данные", MessageBoxButtons.OK);
+            else if (!DateTime.TryParse(maskedTextBox1.Text, out correctDate))
+                MessageBox.Show("Дата рождения введена некорректна! Введите дату в формате dd.mm.yyyy.", "Некорректные данные", MessageBoxButtons.OK);
             else if (maskedTextBox2.Text == "")
                 MessageBox.Show("Введите серию паспорта!", "Некорректные данные", MessageBoxButtons.OK);
             else if (maskedTextBox3.Text == "")
@@ -102,6 +105,7 @@ namespace Company
                 {
                     cmdIC.ExecuteNonQuery();
                     MessageBox.Show("Новый сотрудник добавлен!");
+                    Class1.DataIsRecieved = true;
                     this.Close();
                 }
                 catch (OleDbException exc)

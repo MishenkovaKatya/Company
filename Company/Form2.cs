@@ -16,6 +16,7 @@ namespace Company
         private System.Data.OleDb.OleDbDataAdapter dAdapter;
         private System.Data.DataSet dSet;
         private System.Data.DataTable dTable;
+        BindingSource bs = new BindingSource();
         String nameDep = "", strConnect = "";
 
         public Form2(String name, String con)
@@ -28,15 +29,16 @@ namespace Company
             textBox1.Text = name;
             dataGridView1.CellClick += DataGridView1_CellClick;
             dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font(dataGridView1.ColumnHeadersDefaultCellStyle.Font.FontFamily, 12f, FontStyle.Bold); //жирный курсив размера 16
-            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black; //цвет ячейки
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font(dataGridView1.ColumnHeadersDefaultCellStyle.Font.FontFamily, 12f, FontStyle.Bold);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            this.Activated += Form2_Activated;
             CreateTable();
         }
 
         //
         // Create table of employees.
         //
-        void CreateTable()
+        public void CreateTable()
         {
             dSet = new DataSet();
             String Query = "SELECT ID, SurName, FirstName, Patronymic FROM Empoyee WHERE DepaRtmentID = (SELECT ID FROM Department WHERE Name = '" + nameDep + "')";
@@ -44,7 +46,8 @@ namespace Company
             dAdapter.Fill(dSet, "Empoyee");
             dTable = dSet.Tables["Empoyee"];
             dTable.Columns.Add(" ", typeof(String));
-            dataGridView1.DataSource = dTable;
+            bs.DataSource = dTable;
+            dataGridView1.DataSource = bs;
             dataGridView1.Columns[0].HeaderCell.Value = "ID";
             dataGridView1.Columns[1].HeaderCell.Value = "Фамилия";
             dataGridView1.Columns[2].HeaderCell.Value = "Имя";
@@ -85,9 +88,19 @@ namespace Company
             f1.ShowDialog();
         }
 
+        private void Form2_Activated(object sender, EventArgs e)
+        {
+            if (Class1.DataIsRecieved == true)
+            {
+                CreateTable();
+            }
+            Class1.DataIsRecieved = false;
+        }
+
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = false;
         }
+
     }
 }

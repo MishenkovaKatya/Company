@@ -42,14 +42,15 @@ namespace Company
             DateTime curDate = DateTime.Today;
             String bD = dTable.Rows[0][0].ToString();
             DateTime birthDate = DateTime.Parse(bD);
-            TimeSpan time = curDate - birthDate;
+            int age = curDate.Year - birthDate.Year;
+            DateTime tempDate = curDate.AddYears(-age);
+            if (birthDate > tempDate)
+                age--;
 
-            textBox2.Text = Math.Floor(time.TotalDays / 365).ToString();
-            String dr = dTable.Rows[0][0].ToString();
-            DateTime parserDate = DateTime.Parse(dr);
-            maskedTextBox3.Text = parserDate.ToString("d");
+            textBox2.Text = age.ToString();
             maskedTextBox1.Text = dTable.Rows[0]["DocSeries"].ToString();
             maskedTextBox2.Text = dTable.Rows[0]["DocNumber"].ToString();
+            maskedTextBox3.Text = birthDate.ToString("d");
             textBox6.Text = dTable.Rows[0]["Position"].ToString();
         }
 
@@ -83,6 +84,7 @@ namespace Company
         //
         private void Button2_Click(object sender, EventArgs e)
         {
+            DateTime correctDate;
             if (textBox8.Text == "")
                 MessageBox.Show("Введите имя!", "Некорректные данные", MessageBoxButtons.OK);
             else if (textBox7.Text == "")
@@ -91,6 +93,8 @@ namespace Company
                 MessageBox.Show("Введите отчество!", "Некорректные данные", MessageBoxButtons.OK);
             else if (maskedTextBox3.Text == "  .  .")
                 MessageBox.Show("Введите дату рождения!", "Некорректные данные", MessageBoxButtons.OK);
+            else if (!DateTime.TryParse(maskedTextBox3.Text, out correctDate))
+                MessageBox.Show("Дата рождения введена некорректна! Введите дату в формате dd.mm.yyyy.", "Некорректные данные", MessageBoxButtons.OK);
             else if (maskedTextBox1.Text == "")
                 MessageBox.Show("Введите серию паспорта!", "Некорректные данные", MessageBoxButtons.OK);
             else if (maskedTextBox2.Text == "")
@@ -124,6 +128,7 @@ namespace Company
                 {
                     cmdIC.ExecuteNonQuery();
                     MessageBox.Show("Информация о сотруднике обновлена!");
+                    Class1.DataIsRecieved = true;
                     this.Close();
                 }
                 catch (OleDbException exc)
